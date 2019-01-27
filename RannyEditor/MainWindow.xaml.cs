@@ -432,5 +432,27 @@ namespace Pook
             gotoNextState.IsEnabled = false;
         }
 
+        private void gotoPastState_Click(object sender, RoutedEventArgs e)
+        {
+            NotArtist.gotoPastState();
+            if (NotArtist.StateNumber == 1)
+            {
+                gotoPastState.IsEnabled = false;
+            }
+            gotoNextState.IsEnabled = true;
+            Invalidate();
+        }
+
+        private void gotoNextState_Click(object sender, RoutedEventArgs e)
+        {
+            NotArtist.gotoNextState();
+            if (NotArtist.StateNumber == NotArtist.CanvasState.Count)
+            {
+                gotoNextState.IsEnabled = false;
+            }
+            gotoPastState.IsEnabled = true;
+            Invalidate();
+        }
+
     }
 }
