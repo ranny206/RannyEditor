@@ -63,6 +63,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classes\DifferentFigures\Line.cs" />
+    <Compile Include="Classes\Figure.cs" />
+    <Compile Include="Classes\FigureHost.cs" />
+    <Compile Include="Classes\NotArtist.cs" />
+    <Compile Include="Classes\Tools\PencilTool.cs" />
+    <Compile Include="Classes\Tools\Tool.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

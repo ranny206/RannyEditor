@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RannyEditor.Properties
+namespace Pook.Properties
 {
 
 
