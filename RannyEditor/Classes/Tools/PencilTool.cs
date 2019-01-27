@@ -9,30 +9,16 @@ using Pook.Classes.DifferentFigures;
 
 namespace Pook.Classes.Tools
 {
-    class PencilTool : Tool
+    public class PencilTool : Tool
     {
-        private bool Pressed = false;
-
-        public PencilTool()
-        {
-
-        }
-
         public override void MouseDown(Point point)
         {
-            Pressed = true;
-            NotArtist.Figures.Add(new Line(point));
+            NotArtist.Figures.Add(new Pencil(point));
         }
 
         public override void MouseMove(Point point)
         {
-            if (Pressed)
-                ((Line)NotArtist.Figures[NotArtist.Figures.Count - 1]).AddCord(point);
-        }
-
-        public override void MouseUp(Point point)
-        {
-            Pressed = false;
+            NotArtist.Figures[NotArtist.Figures.Count - 1].AddCord(point);
         }
     }
 }
