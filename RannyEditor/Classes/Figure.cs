@@ -43,7 +43,7 @@ namespace Pook
 
         public double RoundY { get; set; }
 
-        public virtual Figure Clone() //для сохранения копируем фигуру
+        public virtual Figure Clone()
         {
             return new Figure();
         }

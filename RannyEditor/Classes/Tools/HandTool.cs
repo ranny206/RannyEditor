@@ -8,7 +8,7 @@ using System.Windows.Media;
 
 namespace Pook.Classes
 {
-    class HandTool : Tool //двигать канвас после приближения
+    class HandTool : Tool
     {
 
         public override void MouseDown(Point point)

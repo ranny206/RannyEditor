@@ -9,7 +9,7 @@ using Pook.Classes.DifferentFigures;
 
 namespace Pook.Classes
 {
-    class HandTool1 : Tool //двигать выделенные фигуры 
+    class HandTool1 : Tool
     {
         Point StartPoint;
         Point LastPoint;
