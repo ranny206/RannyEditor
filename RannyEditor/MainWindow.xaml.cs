@@ -25,7 +25,48 @@ namespace Pook
         public MainWindow()
         {
             InitializeComponent();
-
+            for (int i = 0; i < Classes.NotArtist.Tools.Count; i++)
+            {
+                string st = "../icons/" + Classes.NotArtist.Tools[i].GetType().Name + ".bmp";
+                ImageBrush img = new ImageBrush();
+                BitmapImage bi3 = new BitmapImage();
+                bi3.BeginInit();
+                bi3.UriSource = new Uri(st, UriKind.Relative);
+                bi3.EndInit();
+                img.ImageSource = bi3;
+                Button btn = new Button();
+                MyLittleToolBar.Children.Add(btn);
+                btn.BorderBrush = Brushes.LightCoral;
+                btn.Name = "btn" + i;
+                btn.Height = 35;
+                btn.Width = 35;
+                btn.Background = img;
+                btn.Content = "";
+                btn.Tag = i;
+                btn.HorizontalAlignment = HorizontalAlignment.Left;
+                btn.Click += new RoutedEventHandler(Btn_Click);
+            }
+            for (int i = 0; i < Classes.NotArtist.colors.Length; i++)
+            {
+                Button btncolor = new Button();
+                if (i <= 10)
+                {
+                    MyLittlePanel1.Children.Add(btncolor);
+                }
+                else
+                {
+                    MyLittlePanel2.Children.Add(btncolor);
+                }
+                btncolor.BorderBrush = Brushes.Snow;
+                btncolor.Name = "btncolor" + i;
+                btncolor.Height = 30;
+                btncolor.Width = 30;
+                btncolor.Content = "";
+                //btncolor.Background = ;
+                btncolor.Tag = i;
+                btncolor.HorizontalAlignment = HorizontalAlignment.Left;
+                btncolor.Click += new RoutedEventHandler(Color_Click);
+            }
             Canvas.Children.Add(Classes.NotArtist.FigureHost);
         }
 
