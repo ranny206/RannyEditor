@@ -6,16 +6,18 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Runtime.Serialization;
+using Pook.Classes;
+using Pook.Classes.DifferentFigures;
 
-namespace Pook.Classes.DifferentFigures
+namespace Pook.Classes
 {
     [Serializable]
 
-    class Line : Figure
+    class Pencil : Figure
     {
-        public Line() { }
+        public Pencil() { }
 
-        public Line(Point point)
+        public Pencil(Point point)
         {
             Coordinates = new List<Point> { point, point };
             Color = NotArtist.ColorNow;
@@ -26,30 +28,49 @@ namespace Pook.Classes.DifferentFigures
             Pen = new Pen(Color, PenThikness) { DashStyle = Dash };
             Select = false;
             SelectRect = null;
-            Type = "Line";
+            Type = "Pencil";
         }
 
         public override void Draw(DrawingContext drawingContext)
         {
-            drawingContext.DrawLine(Pen, Coordinates[0], Coordinates[1]);
+            for (int i = 0; i < Coordinates.Count - 1; i++)
+                drawingContext.DrawLine(Pen, Coordinates[i], Coordinates[i + 1]);
         }
 
         public override void AddCord(Point point)
         {
-            Coordinates[1] = point;
+            Coordinates.Add(point);
         }
 
         public override void Selected()
         {
             if (Select == false)
             {
-                Point pForRect3 = new Point();
-                pForRect3.X = Math.Min(Coordinates[0].X, Coordinates[1].X);
-                pForRect3.Y = Math.Min(Coordinates[0].Y, Coordinates[1].Y);
-                Point pForRect4 = new Point();
-                pForRect4.X = Math.Max(Coordinates[0].X, Coordinates[1].X);
-                pForRect4.Y = Math.Max(Coordinates[0].Y, Coordinates[1].Y);
-                SelectRect = new ZoomRectangle(new Point(pForRect3.X - 15, pForRect3.Y - 15), new Point(pForRect4.X + 15, pForRect4.Y + 15));
+                Point pForRect3 = Coordinates[0];
+                Point pForRect4 = new Point(0, 0);
+                foreach (Point point in Coordinates)
+                {
+                    if (point.X < pForRect3.X)
+                    {
+                        pForRect3.X = point.X;
+                    }
+
+                    if (point.Y < pForRect3.Y)
+                    {
+                        pForRect3.Y = point.Y;
+                    }
+
+                    if (point.X > pForRect4.X)
+                    {
+                        pForRect4.X = point.X;
+                    }
+
+                    if (point.Y > pForRect4.Y)
+                    {
+                        pForRect4.Y = point.Y;
+                    }
+                }
+                SelectRect = new ZoomRectangle(new Point(pForRect3.X - 7, pForRect3.Y - 7), new Point(pForRect4.X + 7, pForRect4.Y + 7));
                 var drawingVisual = new DrawingVisual();
                 var drawingContext = drawingVisual.RenderOpen();
                 SelectRect.Draw(drawingContext);
@@ -90,14 +111,14 @@ namespace Pook.Classes.DifferentFigures
 
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("Coordinates", Coordinates);
+            info.AddValue(nameof(Coordinates), Coordinates);
             info.AddValue("PenThikness", PenThikness);
             info.AddValue("Color", ColorString);
             info.AddValue("Dash", DashString);
             info.AddValue("Type", Type);
         }
 
-        public Line(SerializationInfo info, StreamingContext context)
+        public Pencil(SerializationInfo info, StreamingContext context)
         {
             Coordinates = (List<Point>)info.GetValue("Coordinates", typeof(List<Point>));
             PenThikness = (double)info.GetValue("PenThikness", typeof(double));
@@ -111,7 +132,7 @@ namespace Pook.Classes.DifferentFigures
 
         public override Figure Clone()
         {
-            return new Line
+            return new Pencil
             {
                 BrushColor = this.BrushColor,
                 BrushColorString = this.BrushColorString,
